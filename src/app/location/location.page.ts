@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 declare var google:any;
@@ -109,10 +110,16 @@ export class LocationPage implements OnInit {
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
   }
 
-  constructor(private fDB: AngularFireDatabase,  public toastr: ToastController) { }
+  constructor(private fDB: AngularFireDatabase,  public toastr: ToastController,private router: Router) { }
 
   ngOnInit() {
-    
+    let email = window.localStorage.getItem('email') ? window.localStorage.getItem('email') : '';
+    let uid = window.localStorage.getItem('uid') ? window.localStorage.getItem('uid') : '';
+    if(email == '' && uid == '') {
+      this.router.navigateByUrl('/login');
+    }else{
+      this.router.navigateByUrl('/tabs');
+    }
   }
   async toast(message, status){
     const toast = await this.toastr.create({

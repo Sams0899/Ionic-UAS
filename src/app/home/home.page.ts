@@ -40,6 +40,13 @@ export class HomePage {
       })
   }
   ngOnInit(){
+    let email = window.localStorage.getItem('email') ? window.localStorage.getItem('email') : '';
+    let uid = window.localStorage.getItem('uid') ? window.localStorage.getItem('uid') : '';
+    if(email == '' && uid == '') {
+      this.router.navigateByUrl('/login');
+    }else{
+      this.router.navigateByUrl('/tabs');
+    }
   }
 
   addfriend(event, uid,email){
