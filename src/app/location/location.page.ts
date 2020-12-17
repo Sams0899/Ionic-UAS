@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ToastController } from '@ionic/angular';
 
 declare var google:any;
 
@@ -46,16 +47,20 @@ export class LocationPage implements OnInit {
     let currentemail = window.localStorage.getItem('email') ? window.localStorage.getItem('email') : '';
     const {areaname} = this
     try{
-      navigator.geolocation.getCurrentPosition( position =>{
-        this.fDB.object('locations/'+currentuid+Date.now()).set({
-          uid:currentuid,
-          email: currentemail,
-          areaname: areaname,
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          createdAt: Date.now()
+      if(areaname==''){
+        this.toast('Isi nama lokasi Anda','danger');
+      }else{
+        navigator.geolocation.getCurrentPosition( position =>{
+          this.fDB.object('locations/'+currentuid+Date.now()).set({
+            uid:currentuid,
+            email: currentemail,
+            areaname: areaname,
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            createdAt: Date.now()
+          });
         });
-      });
+      }
     }catch(error){
       console.dir(error.code)
     }
@@ -104,10 +109,21 @@ export class LocationPage implements OnInit {
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
   }
 
-  constructor(private fDB: AngularFireDatabase) { }
+  constructor(private fDB: AngularFireDatabase,  public toastr: ToastController) { }
 
   ngOnInit() {
     
   }
+  async toast(message, status){
+    const toast = await this.toastr.create({
+      message: message,
+      position: 'top',
+      color: status,
+      duration: 2000
+    });
+
+    toast.present();
+  }
+
 
 }
