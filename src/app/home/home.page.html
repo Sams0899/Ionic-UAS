@@ -1,20 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <ion-item lines="none" *ngFor="let user of searchedUsers">
+    <ion-label>
+      <ion-note style="font-weight:bold">
+        {{user.email}}
+      </ion-note>
+    </ion-label>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-button fill="solid" expand="block" color="primary" (click)="addfriend($event, user.uid,user.email)">Add</ion-button>
+  </ion-item>
+  <ion-grid>
+    <ion-item-divider color="dark">
+      <ion-title>
+        Your Friend List
+      </ion-title>
+    </ion-item-divider>
+    <ion-item lines="none" *ngFor="let friend of tempfriends">
+      <ion-label>
+        <ion-note style="font-weight:bold">
+          {{friend.email}}
+        </ion-note>
+      </ion-label>
+      <ion-button fill="solid" expand="block" color="danger" (click)="removefriend($event, friend.uid, friend.email)">Remove</ion-button>
+    </ion-item>
+  </ion-grid>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
 </ion-content>

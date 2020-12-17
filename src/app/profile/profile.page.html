@@ -1,0 +1,57 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content class="bg">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <div class="ion-text-center" style="margin-top: 5px; margin-bottom: 5px;">
+          <ion-img src="assets/icon/profile.png" style="height: 100px;"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  <div *ngFor="let user of userInfo">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <div class="ion-text-center" style="margin-top: 5px; margin-bottom: 5px;">
+            <ion-label>{{user.name}}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <div class="ion-text-center" style="margin-top: 5px; margin-bottom: 5px;">
+            <ion-label>{{user.email}}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <div class="ion-text-center" style="margin-top: 5px; margin-bottom: 5px;">
+          <ion-button class="buttonStyle3" fill="solid" (click)="logout()" color="danger">Log Out</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-item-divider color="dark">
+          <ion-title>
+            Your Feeds
+          </ion-title>
+      </ion-item-divider>
+      <ion-item lines="none" *ngFor="let history of tempLocation">
+        <ion-label>
+          <ion-note style="font-weight:bold">
+            Checked-in at {{history.areaname}} at {{history.createdAt | date : 'yyyy-MM-dd'}}
+          </ion-note>
+        </ion-label>
+        <ion-button fill="solid" expand="block" color="danger" (click)="removelocation($event, history.createdAt)">Remove</ion-button>
+      </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

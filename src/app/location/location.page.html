@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Check In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-row class="ion-align-items-center">
+    <ion-col size="12" class="ion-text-center">
+      <div class="ion-text-center" style="padding-left: 10%; padding-right: 10%;">   
+        <ion-input class="wrap-input1" style="text-align: center; margin: 0;" placeholder="Your Location Name" required type="text" [(ngModel)]="areaname" required></ion-input>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-button color="danger" expand="full" (click)="checkin()">Check In</ion-button>
+  <div #map id="map"></div>
+</ion-content>
